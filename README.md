@@ -119,6 +119,10 @@ python compress_cvcnn.py --dataset npy --x-path X.npy --y-path Y.npy --kd --devi
 }
 ```
 
+## Author
+
+- **leeyueyue** ([@15883829728a-dot](https://github.com/15883829728a-dot)) — reproductions, implementation, and experiments.
+
 ## License
 
 Self-authored code under [MIT](LICENSE). Paper methods/ideas belong to their authors. Do not commit third-party code or non-public datasets.

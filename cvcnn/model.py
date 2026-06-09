@@ -55,9 +55,11 @@ class CVCNN(nn.Module):
             [TernaryMask(c, mu, mask_init_noise) for c in channels]) if with_masks else None
 
         with torch.no_grad():
+            self.blocks.eval()   # eval-mode probe (consistent with RVCNN; deterministic sizing)
             f = torch.zeros(1, 2 * in_complex_ch, input_length)
             for blk in self.blocks:
                 f = blk(f)
+            self.blocks.train()
             self.feat_len = f.shape[-1]
         self.fc1 = ComplexLinear(channels[-1] * self.feat_len, fc_dim)
         self.fc1_act = CReLU()
@@ -111,7 +113,9 @@ class RVCNN(nn.Module):
             c_in = base_width
         self.blocks = nn.Sequential(*blocks)
         with torch.no_grad():
+            self.blocks.eval()   # eval-mode probe: BN tolerates the batch-size-1 dummy
             f = self.blocks(torch.zeros(1, in_ch, input_length))
+            self.blocks.train()
             self.feat_len = f.shape[-1]
         self.fc1 = nn.Linear(base_width * self.feat_len, fc_dim)
         self.fc2 = nn.Linear(fc_dim, num_classes)
