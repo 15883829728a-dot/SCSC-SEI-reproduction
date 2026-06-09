@@ -1,0 +1,9 @@
+numpy>=1.21
+scipy>=1.7
+scikit-learn>=1.0
+matplotlib>=3.4
+tqdm>=4.60
+h5py>=3.1
+# torch is installed separately to match your platform/CUDA:
+#   CPU   : pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   CUDA  : see https://pytorch.org/get-started/locally/

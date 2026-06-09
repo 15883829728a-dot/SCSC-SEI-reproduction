@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Experiment artifacts
+checkpoints/
+runs/
+*.pt
+*.pth
+*.png
+*.log
+
+# Data (do NOT commit datasets / weights)
+data/
+*.npy
+*.h5
+*.mat
+*.pkl
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
