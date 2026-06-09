@@ -31,7 +31,7 @@ class SyntheticEmitters(Dataset):
     toy for validating the SCSC pipeline on CPU, NOT a substitute for real data.
     """
 
-    def __init__(self, num_emitters=10, per_emitter=200, length=1024, seed=0):
+    def __init__(self, num_emitters=10, per_emitter=200, length=1024, seed=0, snr_db=None):
         rng = np.random.default_rng(seed)
         self.num_emitters = num_emitters
         n = np.arange(length)
@@ -56,7 +56,7 @@ class SyntheticEmitters(Dataset):
                 Ii = gain[k] * I                                       # IQ imbalance
                 Qi = Q * np.cos(phi[k]) + I * np.sin(phi[k])
                 sig = np.stack([Ii, Qi], axis=0)
-                snr = rng.uniform(15, 25)
+                snr = rng.uniform(15, 25) if snr_db is None else float(snr_db)
                 p = np.mean(sig ** 2) + 1e-12
                 sig = sig + rng.normal(0, np.sqrt(p / 10 ** (snr / 10)), sig.shape)
                 sig = sig / (np.std(sig) + 1e-8)                       # per-instance norm
